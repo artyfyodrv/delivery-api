@@ -43,4 +43,20 @@ class OrdersController extends ResponseController
 
         return $this->sendResponse($data);
     }
+
+    public function get($id)
+    {
+        try {
+            $data = Order::query()->where('id', $id)->get();
+        } catch (Throwable $t) {
+            Log::error($t . ' ' . __FILE__ . ' ' . __LINE__);
+
+            return $this->sendError(
+                'Произошла ошибка при получении заказа',
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+
+        return $this->sendResponse($data);
+    }
 }
