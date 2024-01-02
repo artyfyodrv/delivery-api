@@ -27,4 +27,20 @@ class OrdersController extends ResponseController
 
         return $this->sendResponse($order);
     }
+
+    public function list()
+    {
+        try {
+            $data = Order::query()->paginate(15);
+        } catch (Throwable $t) {
+            Log::error($t . ' ' . __FILE__ . ' ' . __LINE__);
+
+            return $this->sendError(
+                'Произошла ошибка при получении списка заказов',
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+
+        return $this->sendResponse($data);
+    }
 }

@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('v1/orders/create', [OrdersController::class, 'create'])->name('order-create');
+Route::get('v1/orders/list', [OrdersController::class, 'list'])->name('order-list');
