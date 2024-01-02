@@ -26,6 +26,7 @@ class OrderValidation extends FormRequest
     {
         return [
             'title' => 'required|string|min:4|max:120',
+            'products_ids' => 'required|array',
             'receiver' => 'required|string|max:50',
             'address_take' => 'required|string|min:6|max:150',
             'address_delivery' => 'required|string|min:6|max:150',
