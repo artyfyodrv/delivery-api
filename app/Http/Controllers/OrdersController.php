@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderValidation;
 use App\Models\Order;
-use App\Models\Product;
 use App\Services\OrderService;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,11 +13,17 @@ use Throwable;
 
 class OrdersController extends ResponseController
 {
+    protected $orderService;
+
+    public function __construct(OrderService $orderService)
+    {
+        $this->orderService = $orderService;
+    }
+
     public function create(OrderValidation $request)
     {
         try {
-            $orderService = new OrderService();
-            $data = $orderService->create($request);
+            $data = $this->orderService->create($request);
         } catch (Throwable $t) {
             Log::error($t . ' ' . __FILE__ . ' ' . __LINE__);
 
