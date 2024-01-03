@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Services\OrderService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
@@ -16,7 +19,7 @@ class DeliveryController extends ResponseController
         $this->orderService = $orderService;
     }
 
-    public function orderInfo($orderId)
+    public function orderInfo($orderId) : JsonResponse
     {
         try {
             $data = $this->orderService->getDeliveryOrder($orderId);

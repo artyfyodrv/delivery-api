@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Http\Requests\OrderValidation;
@@ -9,7 +11,7 @@ use App\Models\Product;
 class OrderService
 {
 
-    public function create(OrderValidation $request)
+    public function create(OrderValidation $request): array
     {
         $order = Order::query()->create($request->all());
         $exist = Product::query()->whereIn('id', $request->get('products_ids'))->get();
@@ -24,7 +26,7 @@ class OrderService
         return $result;
     }
 
-    public function getDeliveryOrder($orderId)
+    public function getDeliveryOrder($orderId): array
     {
         $orderData = Order::query()->find($orderId);
         $productsOrder = $orderData->products()->get()->toArray();

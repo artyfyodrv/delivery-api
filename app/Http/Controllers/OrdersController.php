@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OrderValidation;
 use App\Models\Order;
 use App\Services\OrderService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
@@ -20,7 +21,7 @@ class OrdersController extends ResponseController
         $this->orderService = $orderService;
     }
 
-    public function create(OrderValidation $request)
+    public function create(OrderValidation $request): JsonResponse
     {
         try {
             $data = $this->orderService->create($request);
@@ -36,7 +37,7 @@ class OrdersController extends ResponseController
         return $this->sendResponse($data);
     }
 
-    public function list()
+    public function list(): JsonResponse
     {
         try {
             $data = Order::query()->paginate(15);
@@ -52,7 +53,7 @@ class OrdersController extends ResponseController
         return $this->sendResponse($data);
     }
 
-    public function get($id)
+    public function get($id): JsonResponse
     {
         try {
             $data = Order::query()->where('id', $id)->get();
