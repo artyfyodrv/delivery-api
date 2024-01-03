@@ -16,5 +16,6 @@ install: up vendor
 	@cp .env.example .env && \
 	docker compose exec php-delivery bash -c "php artisan key:generate"
 migrate:
-	docker compose exec php-delivery bash -c "php artisan migrate"
+	docker compose exec php-delivery bash -c "php artisan migrate" && \
+	docker compose exec php-delivery bash -c "php artisan db:seed --class=ProductSeeder"
 
